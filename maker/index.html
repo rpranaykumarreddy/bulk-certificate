@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+<title>Ticket / Certificate Generator using JS</title>
+<link href="../common.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png" />
+<style>
+
+</style>
+
+<body>
+    <div id="total">
+        <br>
+        <h1>Ticket / Certificate Generator using JS</h1><br>
+        <div style="margin: 0px 10%;text-align:left;">
+            <ol>
+                <li>Make sure you have changed the download destination.</li>
+                <li>Turn on auto folder selection.</li>
+                <li>Allow multiple downloads.</li>
+            </ol>
+        </div>
+        <br><br>
+        <main>
+            <div>
+                <input type="submit" id="submitBtn" value="Get Certificate" />
+            </div><br><br>
+            <div id="qrcode"></div>
+            <canvas id="qr-code"></canvas>
+        </main>
+        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>-->
+        <script src="qrious.min.js"></script>
+        <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+        <script src="https://unpkg.com/@pdf-lib/fontkit@0.0.4"></script>
+        <script src="filesaver.js"></script>
+        <script src="index.js"></script>
+        <script src="../data.js"></script>
+
+        <br>
+        <br>
+        <br>
+        <p style="text-align:center;"> Scripted by <a href="https://github.com/rpranaykumarreddy" target="_blank">R
+                Pranay Kumar Reddy</a></p>
+        <br>
+        <br>
+    </div>
+
+</body>
+
+</html>

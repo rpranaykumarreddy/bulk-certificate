@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+<title>QR Scanner & validator using JS</title>
+<link href="../common.css" rel="stylesheet">
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+<script src="../data.js"></script>
+<style>
+    #qr-reader {
+        margin: 0px 5%;
+        width: 90%;
+        height: fit-content;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    #popup {
+        background-color: black;
+        color: white;
+        border-radius: 40px;
+        position: fixed;
+        z-index: 100;
+        width: 80vw;
+        height: 80vh;
+        top: 10vh;
+        left: 10vw;
+        display: none;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    button {
+        outline: none;
+        border: none;
+        padding: 10px;
+        margin: 15px;
+        background-color: greenyellow;
+        color: black;
+        border-radius: 18px;
+    }
+    
+    #info {
+        flex-direction: column;
+    }
+</style>
+
+<body>
+    <div id="total">
+        <br>
+        <h1>QR Scanner & validator using JS</h1><br>
+        <div style="margin: 0px 10%;text-align:left;">
+            <ol>
+                <li>Make sure you have changed the download destination.</li>
+                <li>Turn on auto folder selection.</li>
+                <li>Allow multiple downloads.</li>
+            </ol>
+        </div>
+        <br><br>
+        <main>
+            <div id="qr-reader"></div>
+            <div id="popup">
+                <div id="info">
+                    <button onclick="accept()">Mark as attended</button><br>
+                    <div>
+                        <h3 id="text">Content of the QR</h3>
+                    </div>
+                </div>
+                <div>
+                    <h3 id="output"></h3>
+                </div>
+                <div>
+                    <p><sub id="error"></sub></p>
+                </div>
+                <button onclick="clrPop()">Close</button>
+            </div>
+        </main>
+        <script>
+            var eMail, firstName, lastName, ticketId, fullName;
+            var popEle, popBool;
+            popEle = document.getElementById("popup");
+            popBool = false; //false if not displayed
+
+            function onScanSuccess(decodedText, decodedResult) {
+                console.log(`Code scanned = ${decodedText}`, decodedResult);
+                if (!popBool) {
+                    confirm(decodedText);
+                }
+            }
+
+            function onScanFailure(error) {
+                // handle scan failure, usually better to ignore and keep scanning.
+                // for example:
+                // console.warn(`Code scan error = ${error}`);
+                a = document.getElementById("error");
+                a.innerHTML = `Code scan error = ${error}`;
+            }
+            var html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader", {
+                    fps: 10,
+                    qrbox: 250
+                });
+            html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+            //return an array of objects according to key, value, or key and value matching
+            //console.log(getObjects(jso,"ticketId","2421"));
+            async function accept() {
+                //API Request
+                let data = `{
+                          "Firstname": "${firstName}",
+                          "Lastname": "${lastName}",
+                          "Ticket_id": ${ticketId},
+                          "email": "${eMail}"
+                      }`;
+
+                // var res = xhr.send(data);
+
+                document.getElementById("info").style.display = "none";
+                outEle = document.getElementById("output");
+                outEle.style.display = "block";
+                outEle.innerHTML = "Do setup a api to mark this in backend...";
+                //API Request return
+            }
+
+            function clrPop() {
+                popBool = false;
+                popEle.style.display = "none";
+            }
+
+            function getObjects(obj, key, val) {
+                var objects = [];
+                for (var i in obj) {
+                    if (!obj.hasOwnProperty(i)) continue;
+                    if (typeof obj[i] == 'object') {
+                        objects = objects.concat(getObjects(obj[i], key, val));
+                    } else
+                    //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+                    if (i == key && obj[i] == val || i == key && val == '') { //
+                        objects.push(obj);
+                    } else if (obj[i] == val && key == '') {
+                        //only add if the object is not already in the array
+                        if (objects.lastIndexOf(obj) == -1) {
+                            objects.push(obj);
+                        }
+                    }
+                }
+                return objects;
+            }
+
+            function confirm(te) {
+                a = document.getElementById("text");
+                b = getObjects(jso, "ticketId", te);
+                eMail = b[0].eMail;
+                firstName = b[0].firstName;
+                lastName = b[0].lastName;
+                ticketId = b[0].ticketId;
+                fullName = firstName + " " + lastName;
+                a.innerHTML = "E-mail: " + eMail + "<br>First Name: " + firstName + "<br>Last Name: " + lastName +
+                    "<br>Ticket ID: " + ticketId + "<br>Full Name: " + fullName;
+                console.log("22");
+                infEle = document.getElementById("info");
+                infEle.style.display = "flex";
+                outEle = document.getElementById("output");
+                outEle.style.display = "none";
+                popEle = document.getElementById("popup");
+                popEle.style.display = "flex";
+                console.log("22");
+                popBool = true;
+
+            }
+        </script>
+        <br>
+        <br>
+        <br>
+        <p style="text-align:center;"> Scripted by <a href="https://github.com/rpranaykumarreddy" target="_blank">R
+                Pranay Kumar Reddy</a></p>
+        <br>
+        <br>
+    </div>
+
+</body>
+
+</html>

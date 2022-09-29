@@ -1,0 +1,33 @@
+/*universal style*/
+
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+/*whole html style*/
+
+#total {
+    display: block;
+    margin: 7.5vh auto 7.5vh auto;
+    min-height: 80vh;
+    height: auto;
+    padding: 1px;
+    text-align: center;
+    width: 75vw;
+    max-width: 700px;
+    background-color: #eee8d5;
+}
+
+
+/*output html style*/
+
+#outp {
+    display: block;
+    margin: 0 auto 0 auto;
+    max-width: 350px;
+    width: auto;
+    text-align: left;
+    overflow: auto;
+}
