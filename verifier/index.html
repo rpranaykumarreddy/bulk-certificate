@@ -13,7 +13,7 @@
         height: fit-content;
         font-family: Arial, Helvetica, sans-serif;
     }
-    
+
     #popup {
         background-color: black;
         color: white;
@@ -29,7 +29,7 @@
         flex-direction: column;
         align-items: center;
     }
-    
+
     button {
         outline: none;
         border: none;
@@ -39,7 +39,7 @@
         color: black;
         border-radius: 18px;
     }
-    
+
     #info {
         flex-direction: column;
     }
@@ -48,15 +48,7 @@
 <body>
     <div id="total">
         <br>
-        <h1>QR Scanner & validator using JS</h1><br>
-        <div style="margin: 0px 10%;text-align:left;">
-            <ol>
-                <li>Make sure you have changed the download destination.</li>
-                <li>Turn on auto folder selection.</li>
-                <li>Allow multiple downloads.</li>
-            </ol>
-        </div>
-        <br><br>
+        <h1>QR Scanner & validator using JS</h1><br <br><br>
         <main>
             <div id="qr-reader"></div>
             <div id="popup">
@@ -97,9 +89,9 @@
             }
             var html5QrcodeScanner = new Html5QrcodeScanner(
                 "qr-reader", {
-                    fps: 10,
-                    qrbox: 250
-                });
+                fps: 10,
+                qrbox: 250
+            });
             html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 
             //return an array of objects according to key, value, or key and value matching
@@ -134,15 +126,15 @@
                     if (typeof obj[i] == 'object') {
                         objects = objects.concat(getObjects(obj[i], key, val));
                     } else
-                    //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
-                    if (i == key && obj[i] == val || i == key && val == '') { //
-                        objects.push(obj);
-                    } else if (obj[i] == val && key == '') {
-                        //only add if the object is not already in the array
-                        if (objects.lastIndexOf(obj) == -1) {
+                        //if key matches and value matches or if key matches and value is not passed (eliminating the case where key matches but passed value does not)
+                        if (i == key && obj[i] == val || i == key && val == '') { //
                             objects.push(obj);
+                        } else if (obj[i] == val && key == '') {
+                            //only add if the object is not already in the array
+                            if (objects.lastIndexOf(obj) == -1) {
+                                objects.push(obj);
+                            }
                         }
-                    }
                 }
                 return objects;
             }
@@ -166,7 +158,7 @@
                 popEle.style.display = "flex";
                 console.log("22");
                 popBool = true;
-
+                // Add attendance functionality here
             }
         </script>
         <br>
