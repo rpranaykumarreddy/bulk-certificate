@@ -19,6 +19,7 @@
 ### Maker
 
 - Update data.js file to your data.
+
 | Label| Data Used | Type |
 | ------------- |:-------------:| -----:|
 | ticketId | QR Data | Number |
